@@ -3,9 +3,11 @@ const HtmlWebpackPlugin =  require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     mode: 'development', // le pasamos explicitamente el modo desde el archivo
+    devtool: 'source-map',
     entry: './src/index.js', // el punto de entrada de mi aplicación
     output: { // Esta es la salida de mi bundle
         path: path.resolve(__dirname, 'public_html/js'),
@@ -84,5 +86,18 @@ module.exports = {
             ]
         }),
         new Dotenv(),
+        new BundleAnalyzerPlugin(),
     ],
+    devServer: {
+        static: 
+        {
+            directory: path.join(__dirname, "dist"),
+            watch: true,
+        },
+        watchFiles: path.join(__dirname, "./**"), //observa los cambios en todos nuestros archivos y actualiza el navegador
+        compress: true,
+        historyApiFallback: true,
+        port: 3006,
+        open: true, //Hace que se abra en el navegador
+        }
 }
