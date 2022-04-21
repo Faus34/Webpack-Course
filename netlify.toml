@@ -1,4 +1,4 @@
 
 [build]
-    publish = "dist" 
+    publish = "public_html" 
     command = "npm run build" 
